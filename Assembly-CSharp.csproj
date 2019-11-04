@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraLerpToTransform.cs" />
+    <Compile Include="Assets\Scripts\SoyBoyController.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/1bg05/Desktop/GAVIN/Game 312 Game Engines/SuperSoyBoy-Gavin_Crews/SuperSoyBoy/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
