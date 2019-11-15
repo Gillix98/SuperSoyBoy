@@ -119,6 +119,7 @@ public class SoyBoyController : MonoBehaviour
     {
         input.x = Input.GetAxis("Horizontal");
         input.y = Input.GetAxis("Jump");
+        animator.SetFloat("Speed", Mathf.Abs(input.x));
 
         if (input.x > 0f)
         {
@@ -131,10 +132,12 @@ public class SoyBoyController : MonoBehaviour
         if(input.y >= 1f)
         {
             jumpDuration += Time.deltaTime;
+            animator.SetBool("IsJumping", true);
         }
         else
         {
             isJumping = false;
+            animator.SetBool("IsJumping", false);
             jumpDuration = 0f;
         }
         if (PlayerIsOnGround() && isJumping == false)
@@ -142,6 +145,7 @@ public class SoyBoyController : MonoBehaviour
             if (input.y > 0f)
             {
                 isJumping = true;
+                animator.SetBool("IsOnWall", false);
             }
         }
         if (jumpDuration > jumpDurationThreshold) input.y = 0f;
@@ -183,10 +187,18 @@ public class SoyBoyController : MonoBehaviour
         if(IsWallToLeftOrRight() && !PlayerIsOnGround() && input.y == 1)
         {
             rb.velocity = new Vector2(-GetWallDirection() * speed * 0.75f, rb.velocity.y);
+            animator.SetBool("IsOnWall", false);
+            animator.SetBool("IsJumping", false);
+        }
+        else if (!IsWallToLeftOrRight())
+        {
+            animator.SetBool("IsOnWall", false);
+            animator.SetBool("IsJumping", true);
         }
         if(isJumping && jumpDuration < jumpDurationThreshold)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+            animator.SetBool("IsOnWall", true);
         }
     }
 }
